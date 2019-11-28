@@ -412,9 +412,9 @@
         debug: false,
         init: function () {
           this.moving = 0
-          this.score = 0
-          this.steps = 0
-          this.hasWon = false
+          this.state.score = 0
+          this.state.steps = 0
+          this.state.hasWon = false
           this.state.tiles = []
           for (var i = 0; i < this.state.size; i++) {
             this.state.tiles.push([])
