@@ -124,30 +124,6 @@
       <button id="new-game">New Game</button>
     </div>
     <div id="game-board">
-      <div class="grid-row" style="padding-top: 16px;">
-        <div class="tile-bg"></div>
-        <div class="tile-bg"></div>
-        <div class="tile-bg"></div>
-        <div class="tile-bg"></div>
-      </div>
-      <div class="grid-row">
-        <div class="tile-bg"></div>
-        <div class="tile-bg"></div>
-        <div class="tile-bg"></div>
-        <div class="tile-bg"></div>
-      </div>
-      <div class="grid-row">
-        <div class="tile-bg"></div>
-        <div class="tile-bg"></div>
-        <div class="tile-bg"></div>
-        <div class="tile-bg"></div>
-      </div>
-      <div class="grid-row">
-        <div class="tile-bg"></div>
-        <div class="tile-bg"></div>
-        <div class="tile-bg"></div>
-        <div class="tile-bg"></div>
-      </div>
     </div>
     <p><b>How To Play:</b> Use your <b>arrow keys</b> to move the tiles. When two tiles with the same number touch, they
       merge into one!</p>
@@ -411,6 +387,28 @@
         moving: 0,
         debug: false,
         init: function () {
+          this._drawBg()
+          this._initState()
+          for (var i = 0; i < 2; i++) {
+            this._genTile()
+          }
+        },
+        _drawBg() {
+          if ($('.grid-row').length != 0) {
+            return
+          }
+          for (var i = 0; i < this.state.size; i++) {
+            var row = $('<div class="grid-row"></div>')
+            if (i == 0) {
+              row.attr('style', 'padding-top: 16px;')
+            }
+            for (var j = 0; j < this.state.size; j++) {
+              row.append('<div class="tile-bg"></div>')
+            }
+            $('#game-board').append(row)
+          }
+        },
+        _initState() {
           this.moving = 0
           this.state.score = 0
           this.state.steps = 0
@@ -421,11 +419,6 @@
             for (var j = 0; j < this.state.size; j++) {
               this.state.tiles[i].push(0)
             }
-          }
-
-          var that = this
-          for (var i = 0; i < 2; i++) {
-            this._genTile()
           }
         },
         newGame: function () {
